@@ -1,12 +1,12 @@
 from pymongo import MongoClient
 
-#aqui se crea la conexion con el servidor de MongoDB
+# Aquí se crea la conexión con el servidor de MongoDB
 cliente = MongoClient("localhost:27017")
 
-#aca conectamos a la base de datos
+# Acá conectamos a la base de datos
 db = cliente["dataset"]
 
-#conectamos a la coleccion
+# Conectamos a la colección
 colleccion = db["viviendas"]
 
 print("Conexión exitosa a la base de datos y colección.")
