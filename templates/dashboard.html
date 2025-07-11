@@ -63,8 +63,8 @@
                 <div class="card stat-card h-100">
                     <div class="card-body text-center">
                         <i class="bi bi-houses stat-icon text-primary"></i>
-                        <h5 class="card-title mt-2">Total Propiedades</h5>
-                        <h3 class="text-primary mb-0">{{ total_properties or '150' }}</h3>
+                        <h5 class="card-title mt-2">Total Viviendas</h5>
+                        <h3 class="text-primary mb-0">{{ total_viviendas }}</h3>
                     </div>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                     <div class="card-body text-center">
                         <i class="bi bi-currency-euro stat-icon text-success"></i>
                         <h5 class="card-title mt-2">Precio Promedio</h5>
-                        <h3 class="text-success mb-0">€{{ avg_price or '185,000' }}</h3>
+                        <h3 class="text-success mb-0">€{{ precio_promedio }}</h3>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@
                     <div class="card-body text-center">
                         <i class="bi bi-rulers stat-icon text-info"></i>
                         <h5 class="card-title mt-2">Área Promedio</h5>
-                        <h3 class="text-info mb-0">{{ avg_area or '95' }} m²</h3>
+                        <h3 class="text-info mb-0">{{ area_promedio }} m²</h3>
                     </div>
                 </div>
             </div>
@@ -91,7 +91,7 @@
                     <div class="card-body text-center">
                         <i class="bi bi-calculator stat-icon text-warning"></i>
                         <h5 class="card-title mt-2">Precio por m²</h5>
-                        <h3 class="text-warning mb-0">€{{ price_per_m2 or '1,947' }}</h3>
+                        <h3 class="text-warning mb-0">€{{ precio_m2_promedio }}</h3>
                     </div>
                 </div>
             </div>
@@ -142,7 +142,7 @@
                         <div class="mb-3">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <span>Casas</span>
-                                <span class="badge bg-primary">{{ casas_count or '75' }}</span>
+                                <span class="badge bg-primary">{{ casas_count }}</span>
                             </div>
                             <div class="progress mb-3">
                                 <div class="progress-bar bg-primary" style="width: 50%"></div>
@@ -151,10 +151,19 @@
                         <div class="mb-3">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <span>Apartamentos</span>
-                                <span class="badge bg-success">{{ apartamentos_count or '75' }}</span>
+                                <span class="badge bg-success">{{ apartamentos_count }}</span>
                             </div>
                             <div class="progress">
                                 <div class="progress-bar bg-success" style="width: 50%"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span>Otros</span>
+                                <span class="badge bg-success">{{ otros_count }}</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-danger" style="width: 50%"></div>
                             </div>
                         </div>
                     </div>
@@ -170,15 +179,11 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <small class="text-muted">Rango de Precios</small>
-                            <p class="mb-2">€{{ min_price or '85,000' }} - €{{ max_price or '299,000' }}</p>
-                        </div>
-                        <div class="mb-3">
-                            <small class="text-muted">Propiedades Más Recientes</small>
-                            <p class="mb-2">{{ recent_count or '25' }} publicadas este mes</p>
+                            <p class="mb-2">€{{ precio_min }} - €{{ precio_max}}</p>
                         </div>
                         <div>
                             <small class="text-muted">Área Más Común</small>
-                            <p class="mb-0">{{ common_area or '80-120' }} m²</p>
+                            <p class="mb-0">{{ area_comum }} m²</p>
                         </div>
                     </div>
                 </div>
