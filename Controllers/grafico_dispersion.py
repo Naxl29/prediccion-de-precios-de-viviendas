@@ -1,5 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib 
+matplotlib.use('Agg') 
 
 def generar_dispersion():
     ruta = r"dataset/dataset_viviendas.xlsx"
