@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 import pandas as pd
+from Controllers.grafico_dispersion import generar_dispersion
 
 app = Flask(__name__)
 
@@ -36,6 +37,10 @@ def resumen_estadistico():
                            promedio_m2=round(promedio_m2, 2),
                             conteo=conteo_tipo.to_dict()
                             )
+@app.route('/grafico')
+def mostrar_grafico():
+    generar_dispersion()
+    return render_template('grafico.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
