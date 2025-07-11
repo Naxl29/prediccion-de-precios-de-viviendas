@@ -5,6 +5,10 @@ from Controllers.grafico_dispersion import generar_dispersion
 app = Flask(__name__)
 
 @app.route('/')
+def mostrar_dashboard():
+    return render_template('dashboard.html')
+
+@app.route('/tabla')
 def mostrar_tabla():
     ruta = r"C:\laragon\www\PYTHON\prediccion-de-precios-de-viviendas\dataset\dataset_viviendas.xlsx"
     datos = pd.read_excel(ruta, index_col=0, engine='openpyxl')

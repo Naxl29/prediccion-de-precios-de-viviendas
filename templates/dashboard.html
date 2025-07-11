@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Viviendas</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="bg-light">
+    <!-- Navigation Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <i class="bi bi-house-door me-2"></i>
+                Dashboard de Viviendas
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">
+                            <i class="bi bi-speedometer2 me-1"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/tabla">
+                            <i class="bi bi-table me-1"></i>Datos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/grafico">
+                            <i class="bi bi-graph-up me-1"></i>Gráfico
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/resumen">
+                            <i class="bi bi-bar-chart me-1"></i>Resumen
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2 class="text-center mb-4">
+                    <i class="bi bi-house-door text-primary me-2"></i>
+                    Panel de Control - Análisis de Viviendas
+                </h2>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="row mb-4">
+            <div class="col-md-3 mb-3">
+                <div class="card stat-card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-houses stat-icon text-primary"></i>
+                        <h5 class="card-title mt-2">Total Propiedades</h5>
+                        <h3 class="text-primary mb-0">{{ total_properties or '150' }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card stat-card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-currency-euro stat-icon text-success"></i>
+                        <h5 class="card-title mt-2">Precio Promedio</h5>
+                        <h3 class="text-success mb-0">€{{ avg_price or '185,000' }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card stat-card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-rulers stat-icon text-info"></i>
+                        <h5 class="card-title mt-2">Área Promedio</h5>
+                        <h3 class="text-info mb-0">{{ avg_area or '95' }} m²</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card stat-card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-calculator stat-icon text-warning"></i>
+                        <h5 class="card-title mt-2">Precio por m²</h5>
+                        <h3 class="text-warning mb-0">€{{ price_per_m2 or '1,947' }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        <h5 class="mb-0">
+                            <i class="bi bi-lightning me-2"></i>Acciones Rápidas
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-2">
+                                <a href="/tabla" class="btn btn-outline-primary w-100">
+                                    <i class="bi bi-table me-2"></i>Ver Todos los Datos
+                                </a>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <a href="/grafico" class="btn btn-outline-success w-100">
+                                    <i class="bi bi-graph-up me-2"></i>Análisis Gráfico
+                                </a>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <a href="/resumen" class="btn btn-outline-info w-100">
+                                    <i class="bi bi-bar-chart me-2"></i>Ver Resumen
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-primary text-white">
+                        <h6 class="mb-0">
+                            <i class="bi bi-pie-chart me-2"></i>Distribución por Tipo
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span>Casas</span>
+                                <span class="badge bg-primary">{{ casas_count or '75' }}</span>
+                            </div>
+                            <div class="progress mb-3">
+                                <div class="progress-bar bg-primary" style="width: 50%"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span>Apartamentos</span>
+                                <span class="badge bg-success">{{ apartamentos_count or '75' }}</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" style="width: 50%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-success text-white">
+                        <h6 class="mb-0">
+                            <i class="bi bi-graph-up me-2"></i>Tendencias del Mercado
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <small class="text-muted">Rango de Precios</small>
+                            <p class="mb-2">€{{ min_price or '85,000' }} - €{{ max_price or '299,000' }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <small class="text-muted">Propiedades Más Recientes</small>
+                            <p class="mb-2">{{ recent_count or '25' }} publicadas este mes</p>
+                        </div>
+                        <div>
+                            <small class="text-muted">Área Más Común</small>
+                            <p class="mb-0">{{ common_area or '80-120' }} m²</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
