@@ -6,15 +6,21 @@ class PredictorController:
     def __init__(self, ruta_dataset):
         self.ruta_dataset = ruta_dataset
         self.data_loader = DataLoader(ruta_dataset)
-        self.statistics = Statistics()
-        self.visualizer = Visualizer()
-
+        self.datos = self.data_loader.cargar_datos()
+        
     def procesar_todo(self):
-        datos = self.data_loader.cargar_excel()
-
-        estadisticas = self.statistics.calcular_estadisticas(datos)
-
-        self.visualizer.generar_dispersion(datos)
-
+        if self.datos is None:
+            return {}
+        
+        estadisticas = Statistics(self.datos).calcular_estadisticas()
+        Visualizer(self.datos).generar_dispersion()
         return estadisticas
+    
+    def _clasificador_tipo(self, desc):
+        if isinstance(desc, str):
+            if 'casa' in desc.lower():
+                return 'Casa'
+            elif 'apartamento' in desc.lower():
+                return 'Apartamento'
+        return 'Otro'
     
