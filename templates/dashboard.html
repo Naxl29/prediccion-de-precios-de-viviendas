@@ -37,9 +37,9 @@
             <div class="col-md-3 mb-3">
                 <div class="card stat-card h-100">
                     <div class="card-body text-center">
-                        <i class="bi bi-currency-euro stat-icon text-success"></i>
+                        <i class="bi bi-currency-dollar stat-icon text-success"></i>
                         <h5 class="card-title mt-2">Precio Promedio</h5>
-                        <h3 class="text-success mb-0">€{{ precio_promedio }}</h3>
+                        <h3 class="text-success mb-0">${{ precio_promedio }}</h3>
                     </div>
                 </div>
             </div>
@@ -57,7 +57,7 @@
                     <div class="card-body text-center">
                         <i class="bi bi-calculator stat-icon text-warning"></i>
                         <h5 class="card-title mt-2">Precio por m²</h5>
-                        <h3 class="text-warning mb-0">€{{ precio_m2_promedio }}</h3>
+                        <h3 class="text-warning mb-0">${{ precio_m2_promedio }}</h3>
                     </div>
                 </div>
             </div>
@@ -129,11 +129,7 @@
                                 <span class="badge bg-warning">{{ otros_count }}</span>
                             </div>
                             <div class="progress">
-<<<<<<< HEAD
                                 <div class="progress-bar bg-warning" style="width: 6%"></div>
-=======
-                                <div class="progress-bar bg-warning" style="width: 50%"></div>
->>>>>>> feature/app
                             </div>
                         </div>
                     </div>
