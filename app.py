@@ -33,9 +33,28 @@ def dashboard():
 def mostrar_tabla():
     """Ruta para mostrar la tabla de datos"""
     if controlador.datos is not None:
-        datos_html = controlador.datos.to_html(classes='table table-bordered', index=False)
+        df = controlador.datos.copy()
+        df.reset_index(inplace=True)
+        df.rename(columns={'index': 'id'}, inplace=True)
+
+        df = df.rename(columns={
+            'precio': 'Precio',
+            'area': 'Área',
+            'habitaciones': 'Habitaciones',
+            'antiguedad': 'Antigüedad',
+            'fecha_publicacion': 'Fecha Publicación',
+            'tipo_vivienda': 'Tipo de Vivienda',
+            'descripcion': 'Descripción'
+        })
+
+        columnas_orden = ['id', 'Precio', 'Área', 'Habitaciones', 'Antigüedad', 'Fecha Publicación', 'Tipo de Vivienda', 'Descripción']
+        df = df[columnas_orden]
+
+        datos_html = df.to_html(classes='table table-striped table-bordered', index=False)
         return render_template('tabla.html', tabla=datos_html)
+    
     return render_template('tabla.html', tabla="No hay datos disponibles")
+
 
 @app.route('/resumen')
 def resumen_estadistico():
