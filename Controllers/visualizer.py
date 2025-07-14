@@ -14,8 +14,24 @@ class Visualizer:
             datos = self.datos.copy()
             datos = datos.dropna(subset=['precio', 'area'])
 
+            if 'tipo_vivienda' not in datos.columns:
+                def clasificar_tipo(desc):
+                    if isinstance(desc, str):
+                        if 'casa' in desc.lower():
+                            return 'Casa'
+                        elif 'apartamento' in desc.lower():
+                            return 'Apartamento'
+                    return 'Otro'
+                datos['tipo_vivienda'] = datos['descripcion'].apply(clasificar_tipo)
+
+            colores = {'Casa': 'blue', 'Apartamento': 'green', 'Otro': 'orange'}
+
             plt.figure(figsize=(10, 6))
-            plt.scatter(datos['area'], datos['precio'], alpha=0.6, c='teal', edgecolors='k', label='Datos reales')
+
+            for tipo, color in colores.items():
+                subset = datos[datos['tipo_vivienda'] == tipo]
+                plt.scatter(subset['area'], subset['precio'],
+                            alpha=0.6, c=color, edgecolors='k', label=tipo)
 
             X = datos[['area']]
             y = datos['precio']
