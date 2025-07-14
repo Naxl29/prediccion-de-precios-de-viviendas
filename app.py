@@ -2,13 +2,16 @@ from flask import Flask, render_template
 import pandas as pd
 from Controllers.predictor_controller import PredictorController
 from Controllers.visualizer import Visualizer
+from Models.conexion import Conexion
+from Models.data_loader import DataLoader
 import os
 
 app = Flask(__name__)
 
-ruta_dataset = r"dataset/dataset_viviendas.xlsx"
+conexion = Conexion()
 
-controlador = PredictorController(ruta_dataset)
+
+controlador = PredictorController(conexion)
 
 @app.route('/')
 def dashboard():

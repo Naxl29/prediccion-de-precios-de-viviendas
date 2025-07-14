@@ -2,11 +2,12 @@ from Models.data_loader import DataLoader
 from Models.statistics import Statistics
 from Controllers.visualizer import Visualizer
 from Models.model_trainer import ModelTrainer
+from Models.conexion import Conexion
 
 class PredictorController:
-    def __init__(self, ruta_dataset):
-        self.ruta_dataset = ruta_dataset
-        self.data_loader = DataLoader(ruta_dataset)
+    def __init__(self, conexion):
+        self.conexion = conexion
+        self.data_loader = DataLoader(conexion)
         self.datos = self.data_loader.cargar_datos()
         
         self.stat_calculator = None
