@@ -1,8 +1,8 @@
 import pandas as pd
-from conexion import Conexion
+from Models.conexion import Conexion
 
 class DataLoader:
-    def __init__(self, ruta):
+    def __init__(self, ruta=None):
         self.ruta = ruta
         self.datos = None
         self.conexion = Conexion()
@@ -49,12 +49,25 @@ class DataLoader:
             if registros:
                 self.datos = pd.DataFrame(registros)
                 print("Datos cargados desde la base de datos correctamente.")
+                return self.datos
             else:
                 print("No se encontraron datos en la base de datos.")
                 return None
         except Exception as e:
             print(f"Error al obtener los datos de la base de datos: {e}")
             return None
+        finally:
+            cliente.close()
+            
+    def verificar_datos_existentes(self):
+        """Verifica si existen datos en la base de datos"""
+        cliente, coleccion = self.conexion.conectar()
+        try:
+            count = coleccion.count_documents({})
+            return count > 0
+        except Exception as e:
+            print(f"Error al verificar datos existentes: {e}")
+            return False
         finally:
             cliente.close()
 

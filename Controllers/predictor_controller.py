@@ -7,26 +7,24 @@ from Models.conexion import Conexion
 class PredictorController:
     def __init__(self, conexion):
         self.conexion = conexion
-        self.data_loader = DataLoader(conexion)
-        self.datos = self.data_loader.cargar_datos()
+        self.data_loader = DataLoader()
+        self.datos = None 
         
         self.stat_calculator = None
         self.visualizer = None
         self.model_trainer = None
 
     def procesar_todo(self):
-        """Carga datos, calcula estadísticas y grafica dispersión."""
+        self.datos = self.data_loader.obtener_datos()
+        if self.datos is not None:
+            self.stat_calculator = Statistics(self.datos)
+            estadisticas = self.stat_calculator.calcular_estadisticas()
 
-        if self.datos is None:
-            return {}
+            self.visualizer = Visualizer(self.datos)
+            self.visualizer.generar_dispersion()
 
-        self.stat_calculator = Statistics(self.datos)
-        estadisticas = self.stat_calculator.calcular_estadisticas()
-
-        self.visualizer = Visualizer(self.datos)
-        self.visualizer.generar_dispersion()
-
-        return estadisticas
+            return estadisticas
+        return {}  # Retornar diccionario vacío si no hay datos
     
     def entrenar_regresion(self):
         """Entrena el modelo de regresión y devuelve coeficientes y métricas."""
