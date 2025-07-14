@@ -24,14 +24,13 @@ class PredictorController:
             self.visualizer.generar_dispersion()
 
             return estadisticas
-        return {}  # Retornar diccionario vacío si no hay datos
+        return {}  
     
     def entrenar_regresion(self):
         """Entrena el modelo de regresión y devuelve coeficientes y métricas."""
         if self.datos is None:
             return {}
 
-        # Inicializa y entrena
         self.model_trainer = ModelTrainer(self.datos)
         resultados = self.model_trainer.entrenar_modelo()
         return resultados
